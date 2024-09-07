@@ -1,0 +1,71 @@
+/* listTask.css */
+
+/* Style de la liste de tâches */
+.task-list {
+    width: 50%;
+    border-collapse: collapse;
+  }
+
+.checkbox{
+    border:2px solid #6C63FF !important;
+    background-color: #6C63FF;
+}
+  .task {
+    display: flex;
+    align-items: center;
+    width:100%;
+    padding: 16px;
+    border-bottom: 1px solid #6C63FF; /* Gray-200 */
+    background-color: none !important;
+    color: #374151; /* Gray-900 */
+  }
+
+  .icone1:hover{
+    color: #6C63FF;
+  }
+
+  .dark .icone1:hover{
+    color: #6C63FF;
+  }
+  
+  .task:last-child {
+    border-bottom: none;
+  }
+  
+  .task input.checkbox {
+    margin-right: 16px;
+  }
+  
+  /* Styles pour le thème sombre */
+  .dark .task {
+    background-color: #252525; 
+    border-bottom: 1px solid #6C63FF;
+    color: #d1d5db;
+  }
+  
+  .dark .task a {
+    color: #38bdf8; /* Cyan-500 */
+  }
+  
+  .task a {
+    color: #0ea5e9; /* Cyan-600 */
+  }
+  
+  .task a:hover {
+    text-decoration: underline;
+  }
+  
+
+  .addbtn{
+    background-color: #6C63FF;
+    border:none;
+    padding: 2px;
+    margin-top: 250px;
+    margin-left: 55%;
+    width: 45px;
+    height: 45px;
+}
+
+.linethrough {
+  text-decoration: line-through !important;
+}

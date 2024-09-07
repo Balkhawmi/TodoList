@@ -1,0 +1,59 @@
+/* Appliquer un fond transparent au modal */
+.modal {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7) !important; /* Fond noir transparent */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white !important;
+}
+
+/* Style pour le contenu du modal */
+.modal1 {
+    width: 50% !important;
+    background-color: #fff !important;
+    margin: 0 auto;
+    padding: 20px !important;
+    margin-top: 7%;
+    border: 1px solid #fff !important;
+    border-radius: 5px !important;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+   
+}
+
+#libelle{
+    border-color: #6C63FF !important;
+    outline: none !important;   
+}
+
+.dark #libelle{
+    border-color: #fff !important;
+    background: none !important;
+    outline-offset: #fff !important;
+    color: white;
+}
+
+
+.butnn{
+    margin-top: 20% !important;
+}
+
+.dark .modal1 {
+    background-color: #252525 !important; /* Fond sombre pour le mode sombre */
+}
+
+/* Styles supplémentaires pour les boutons */
+.button {
+    background-color: #6C63FF !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 20px !important;
+    cursor: pointer !important;
+}
+
+.button1 {
+    border: 2px solid #6C63FF;
+    color: #6C63FF !important;
+    padding: 10px 20px;
+    cursor: pointer;
+}

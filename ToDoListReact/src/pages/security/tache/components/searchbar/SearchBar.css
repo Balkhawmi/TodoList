@@ -1,0 +1,41 @@
+.search{
+    width: 80%;
+    color: #6C63FF !important;
+}
+
+#search-dropdown{
+    border-color: #6C63FF;
+}
+
+
+.serch-icon{
+    color: #6C63FF;
+}
+
+.dark .search{
+    background-color: #252525 !important;
+    color: white !important;
+}
+
+.select{
+    background: #6C63FF !important;
+    color: white !important;
+}
+
+select{
+    color: white;
+    
+}
+
+
+.select:hover{
+    border: 1px solid #6C63FF;
+}
+
+option{
+    background-color: white !important;
+    color: #6C63FF !important;
+    border: 1px solid #6C63FF !important;
+    
+
+}

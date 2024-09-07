@@ -1,0 +1,21 @@
+
+.deconnectbtn{
+    background-color: red;
+    border:none;
+    padding: 2px;
+    margin-top: 250px;
+    margin-right: 15%;
+    width: 45px;
+    height: 45px;
+}
+
+.empty{
+    margin-top: 10%;
+    position: absolute;
+}
+
+.empty span{
+    font-weight: 800;
+    margin-left: 40%;
+}
+

@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+html.dark {
+  --bg-color: #252525;
+  --text-color: #F7F7F7;
+  .serch-icon{
+    color: white !important;
+  };
+  #search-dropdown{
+    border: 1px solid white !important
+  }
+}
+
+.bg-white{
+ background: none !important;
+}
+
+
+body{
+  font-family: "Poppins", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  
+
+
+}

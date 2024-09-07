@@ -1,0 +1,9 @@
+
+.gmail:hover {
+    background: red;
+    color: white;
+    svg {
+        color: white !important;
+    }
+}
+
