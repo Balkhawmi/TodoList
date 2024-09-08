@@ -6,6 +6,7 @@ import { useAuth } from '../../../utils/AuthProvider';
 import { UserConnectOrNull } from '../../../models/user.model';
 import { useForm } from 'react-hook-form';
 import { GoogleLogin } from '@react-oauth/google';
+
 export default function LoginPage() {
     const navigate = useNavigate();
     const [showGoogleLogin, setShowGoogleLogin] = useState(false);
