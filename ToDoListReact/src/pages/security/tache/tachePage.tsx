@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { DndContext, DragEndEvent, closestCorners } from "@dnd-kit/core";
+import { DndContext, DragEndEvent, closestCorners, UniqueIdentifier  } from "@dnd-kit/core";
+import { DragStartEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import "./tachePage.css";
 import { Button } from 'flowbite-react';
@@ -26,7 +27,7 @@ const TachePage: React.FC<TachePageProps> = ({ onToggleTheme, isDarkMode }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [taskToEdit, setTaskToEdit] = useState<TachesList | null>(null);
-  const [draggingTaskId, setDraggingTaskId] = useState<string | null>(null);
+  const [draggingTaskId, setDraggingTaskId] = useState<number | null>(null);
 
   const fetchTasks = async () => {
     try {
@@ -38,6 +39,8 @@ const TachePage: React.FC<TachePageProps> = ({ onToggleTheme, isDarkMode }) => {
       setIsLoading(false);
     } catch (err) {
       setError("Failed to load tasks");
+      console.log(err);
+      
       setIsLoading(false);
     }
   };
@@ -64,6 +67,7 @@ const TachePage: React.FC<TachePageProps> = ({ onToggleTheme, isDarkMode }) => {
 
   useEffect(() => {
     filterTasks();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tasks, filter, searchTerm]);
 
   const handleSearch = (term: string) => {
@@ -87,10 +91,9 @@ const TachePage: React.FC<TachePageProps> = ({ onToggleTheme, isDarkMode }) => {
     }
   };
 
-  const handleEdit = (id: string) => {
+  const handleEdit = (id: number) => { // Changer 'string' en 'number'
     if (!draggingTaskId) {
       const taskToEdit = tasks.find(task => task.id === id);
-      
       if (taskToEdit) {
         setTaskToEdit(taskToEdit);
         setIsModalOpen(true);
@@ -103,7 +106,7 @@ const TachePage: React.FC<TachePageProps> = ({ onToggleTheme, isDarkMode }) => {
     setTaskToEdit(null);
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: number) => { // Changer 'string' en 'number'
     if (!draggingTaskId) {
       try {
         await tacheService.updateTache(id, { etat: false });
@@ -116,19 +119,23 @@ const TachePage: React.FC<TachePageProps> = ({ onToggleTheme, isDarkMode }) => {
     }
   };
 
-  const handleDragStart = (event: DragEvent) => {
-    setDraggingTaskId(event.active.id);
+  const handleDragStart = (event: DragStartEvent) => {
+    const taskId = event.active.id as UniqueIdentifier;
+
+    // Convertir le taskId en number avant de l'assigner
+    setDraggingTaskId(Number(taskId)); // Convertir en 'number'
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
+    // Réinitialiser après la fin du glissement
     setDraggingTaskId(null);
 
     if (!over) return;
 
-    const oldIndex = tasks.findIndex(task => task.id === active.id);
-    const newIndex = tasks.findIndex(task => task.id === over.id);
+    const oldIndex = tasks.findIndex((task) => task.id === Number(active.id)); // Conversion ici aussi
+    const newIndex = tasks.findIndex((task) => task.id === Number(over.id));
 
     if (oldIndex !== -1 && newIndex !== -1) {
       const newTasks = arrayMove(tasks, oldIndex, newIndex);
@@ -157,7 +164,7 @@ const TachePage: React.FC<TachePageProps> = ({ onToggleTheme, isDarkMode }) => {
           onDragEnd={handleDragEnd}
         >
         </DndContext>
-          <SortableContext items={filteredTasks.map(task => task.id)}>
+        <SortableContext items={filteredTasks.map(task => String(task.id))}>
             {filteredTasks.length === 0 ? (
               <p className="empty">No tasks found</p>
             ) : (

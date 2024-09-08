@@ -3,6 +3,7 @@ import { Modal } from "flowbite-react";
 import './ModalComponent.css';
 import tacheService from "../../../../../services/tacheService";
 import { authService } from "../../../../../services/AuthService";
+import TachesList from "../../../../../models/tache.model"; // Assure-toi que tu as bien ce fichier
 
 interface ModalComponentProps {
   isOpen: boolean;
@@ -29,26 +30,33 @@ export function ModalComponent({ isOpen, onClose, onTaskAdded, taskToEdit, setTa
 
   const handleApplyClick = async () => {
     if (libelle.trim() === "") return;
-
-    const user = authService.getTokenInfo();
-    const userId = user?.id;
-    const newTache = {
-      libelle: libelle,
+  
+    const user = authService.getTokenInfo(); // Assurez-vous que le type retourné est CustomJwtPayload
+    const userId = user?.id; // `id` est de type `number` dans CustomJwtPayload
+  
+    // Préparer la nouvelle tâche à créer
+    const newTache: Omit<TachesList, 'id'> = {
+      libelle,
       statut: "incomplete",
       etat: true,
-      userId: userId
+      userId // Assurez-vous que `userId` est de type `number`
     };
-
+  
     try {
       if (taskToEdit) {
-        // Mise à jour de la tâche existante
-        await tacheService.updateTache(taskToEdit.id, { libelle });
-        setTaskToEdit(null); // Réinitialiser après édition
+        // On vérifie que l'ID de la tâche à éditer existe et est bien un nombre
+        if (typeof taskToEdit.id !== 'undefined') {
+          const updatedTache: Partial<TachesList> = { libelle }; // Mise à jour partielle de la tâche
+          await tacheService.updateTache(taskToEdit.id, updatedTache); // Appel à la mise à jour avec un ID valide
+          setTaskToEdit(null); // Réinitialiser après édition
+        } else {
+          throw new Error("Task ID is missing.");
+        }
       } else {
         // Création d'une nouvelle tâche
         await tacheService.createTache(newTache);
       }
-
+  
       onTaskAdded(); // Rafraîchir la liste des tâches
       onClose(); // Fermer le modal
     } catch (error) {
@@ -98,3 +106,4 @@ export function ModalComponent({ isOpen, onClose, onTaskAdded, taskToEdit, setTa
 }
 
 export default ModalComponent;
+ 

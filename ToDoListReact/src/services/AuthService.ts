@@ -1,5 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 import apiClient, { RestResponse } from "./api-client";
+import { CustomJwtPayload } from "../utils/AuthGard";
 
 interface Credentials {
     username: string;
@@ -45,9 +46,13 @@ const isLogged = () => {
  * Récupération du payload du token
  * @returns {object}
  */
-const getTokenInfo = () => {
-    return jwtDecode(getToken()!);
-  }
+  const getTokenInfo = (): CustomJwtPayload => {
+    const token = getToken();
+    if (!token) {
+      throw new Error('Token is not available');
+    }
+    return jwtDecode<CustomJwtPayload>(token); // Spécifiez le type du payload ici
+  };
 
   const getTokenInfoOther = (token: string) => {
     return jwtDecode(token);

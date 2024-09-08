@@ -48,7 +48,7 @@ class TacheService {
       }
 
   // Méthode pour créer un nouvel tache
-  async createTache(data: TachesList) {
+  async createTache(data: Omit<TachesList, 'id'>) {
     try {
       const response = await apiClient.post(this.baseUri, data);
       return response.data;
@@ -58,14 +58,14 @@ class TacheService {
   }
 
   // Méthode pour mettre à jour un tache par son ID
-    async updateTache(id: string | number, data: TachesList) {
-        try {
-        const response = await apiClient.put(`${this.baseUri}/${id}`, data);
-        return response.data;
-        } catch (error) {
-        this.handleError(error);
-        }
+  async updateTache(id: string | number, data: Partial<TachesList>) {
+    try {
+      const response = await apiClient.put(`${this.baseUri}/${id}`, data);
+      return response.data;
+    } catch (error) {
+      this.handleError(error);
     }
+  }
 
   // Méthode pour supprimer un tache par son ID
   async deleteTache(id: string | number) {

@@ -5,12 +5,12 @@ import "./listTask.css";
 import tacheService from "../../../../../services/tacheService";
 
 interface TaskProps {
-  id: string;
+  id: number; // Changer 'string' en 'number'
   libelle: string;
   statut: string;
-  onEdit: (id: string) => void;
-  onDelete: (id: string) => void;
-  fetchTasks: () => void; // Assurez-vous que fetchTasks est bien défini ici
+  onEdit: (id: number) => void; // Changer 'string' en 'number'
+  onDelete: (id: number) => void; // Changer 'string' en 'number'
+  fetchTasks: () => void;
 }
 
 const Task: React.FC<TaskProps> = ({ id, libelle, statut, onEdit, onDelete, fetchTasks }) => {
@@ -33,13 +33,7 @@ const Task: React.FC<TaskProps> = ({ id, libelle, statut, onEdit, onDelete, fetc
 
     try {
       await tacheService.updateTache(id, { statut: newStatut });
-      if (typeof fetchTasks === 'function') {
-        console.log(fetchTasks());
-        
-        fetchTasks(); // Vérifiez ici si fetchTasks est bien une fonction
-      } else {
-        console.error("fetchTasks n'est pas une fonction");
-      }
+      await fetchTasks();
     } catch (error) {
       console.error("Erreur lors de la mise à jour du statut :", error);
       setIsChecked(isChecked);
@@ -108,10 +102,10 @@ const Task: React.FC<TaskProps> = ({ id, libelle, statut, onEdit, onDelete, fetc
 };
 
 interface ListTaskProps {
-  tasks: { id: string; libelle: string; statut: string }[];
-  onEdit: (id: string) => void;
-  onDelete: (id: string) => void;
-  fetchTasks: () => void; // Assurez-vous que fetchTasks est bien défini ici
+  tasks: { id: number; libelle: string; statut: string }[]; // Changer 'string' en 'number'
+  onEdit: (id: number) => void; // Changer 'string' en 'number'
+  onDelete: (id: number) => void; // Changer 'string' en 'number'
+  fetchTasks: () => void;
 }
 
 const ListTask: React.FC<ListTaskProps> = ({ tasks, onEdit, onDelete, fetchTasks }) => {
@@ -125,7 +119,7 @@ const ListTask: React.FC<ListTaskProps> = ({ tasks, onEdit, onDelete, fetchTasks
           statut={task.statut}
           onEdit={onEdit}
           onDelete={onDelete}
-          fetchTasks={fetchTasks} // Passez fetchTasks ici
+          fetchTasks={fetchTasks}
         />
       ))}
     </div>

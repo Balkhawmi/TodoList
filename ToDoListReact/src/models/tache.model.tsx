@@ -3,5 +3,5 @@ export default interface TachesList {
     libelle: string;
     statut: string;
     etat: boolean;
-    userId: string
-}
+    userId: number; 
+  }
